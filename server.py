@@ -1,3 +1,5 @@
+import os
+
 
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, flash, abort
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -155,4 +157,5 @@ def delete():
 
 if __name__ == "__main__":
     init_db()
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render 会自动传入 PORT 环境变量
+    app.run(host="0.0.0.0", port=port)
