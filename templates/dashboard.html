@@ -1,0 +1,20 @@
+
+<h2>欢迎 {{ user[1] }}（{{ user[2] }}）</h2>
+<form method="post" enctype="multipart/form-data" action="/upload">
+  <input type="file" name="image">
+  <button type="submit">上传图片</button>
+</form>
+
+<form method="post" action="/delete" onsubmit="return confirm('确认要删除选中的图片吗？')">
+  <ul>
+    {% for id, filename, token in images %}
+      <li>
+        <img src="/view/{{id}}?token={{token}}" width="100"><br>
+        <input type="checkbox" name="delete_ids" value="{{id}}"> {{filename}}
+        [<a href="/share/{{id}}">生成分享链接</a>]
+      </li>
+    {% endfor %}
+  </ul>
+  <button type="submit">批量删除</button>
+</form>
+<a href="/logout">退出登录</a>
